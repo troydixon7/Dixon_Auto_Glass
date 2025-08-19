@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dixon Auto Glass - Intro</title>
+
+  <!-- Prevent caching -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <!-- SEO Meta -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Mobile Auto Glass service for the Tulsa county area in Oklahoma.">
+
+  <!-- Preload main.html and images for faster transition -->
+  <link rel="preload" href="main.html?v=3" as="document">
+  <link rel="preload" href="images/DixonAutoGlass2.png?v=3" as="image">
+  <link rel="preload" href="images/DixonAutoGlass10.png?v=3" as="image">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #ff2f00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .flip-container {
+      perspective: 1000px;
+      width: 100%;
+      max-width: 800px;
+      aspect-ratio: 16 / 10;
+      position: relative;
+    }
+
+    .flipper {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease-in-out;
+    }
+
+    .flipper.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .front, .back {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      backface-visibility: hidden;
+    }
+
+    .front img, .back img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .back {
+      transform: rotateY(180deg);
+    }
+
+    .wipe {
+      position: fixed;
+      top: 0;
+      left: 100%;
+      width: 100%;
+      height: 100%;
+      background: white;
+      z-index: 10;
+      transition: left 0.8s ease-in-out;
+    }
+
+    .wipe.active {
+      left: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="flip-container">
+    <div class="flipper" id="flipper">
+      <div class="front">
+        <img src="images/DixonAutoGlass2.png?v=3" alt="Front Image" loading="eager">
+      </div>
+      <div class="back">
+        <img src="images/DixonAutoGlass10.png?v=3" alt="Back Image" loading="eager">
+      </div>
+    </div>
+  </div>
+
+  <div class="wipe" id="wipe"></div>
+
+  <script>
+    // Trigger flip effect
+    setTimeout(() => {
+      document.getElementById('flipper').classList.add('flipped');
+    }, 250);
+
+    // Trigger wipe animation and redirect
+    setTimeout(() => {
+      const wipe = document.getElementById('wipe');
+      wipe.classList.add('active');
+      setTimeout(() => {
+        window.location.replace('main.html?v=3');
+      }, 800);
+    }, 1000);
+
+    // Fallback in case wipe or JS fails
+    setTimeout(() => {
+      if (!window.location.href.includes('main.html')) {
+        window.location.replace('main.html?v=3');
+      }
+    }, 5000);
+  </script>
+
+  <!-- No-JS Fallback -->
+  <noscript>
+    <meta http-equiv="refresh" content="2; url=main.html?v=3">
+  </noscript>
+</body>
+</html>
